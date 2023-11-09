@@ -16,8 +16,28 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    productFlavors{
+        dev {
+            dimension "environment"
+            applicationId "com.ibrahimaluc.busbookingapp"
+
+            buildConfigField("String", 'BASE_URL', '"https://demo.voltlines.com/"')
+
+        }
+        live {
+            dimension "environment"
+            applicationId "com.ibrahimaluc.busbookingapp"
+
+            buildConfigField("String", 'BASE_URL', '"https://demo.voltlines.com/"')
+        }
+    }
 
     buildTypes {
+
+        debug {
+            minifyEnabled false
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -27,8 +47,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    flavorDimensions "environment"
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures{
+        buildConfig = true
     }
 }
 
