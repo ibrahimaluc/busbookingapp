@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.callbackFlow
 class MapRepository(
     private val mapService: MapService
 ) {
-    fun getAllProducts(id: Int): Flow<Resource<Map>> = callbackFlow {
+    fun getStationList(id: Int): Flow<Resource<Map>> = callbackFlow {
         try {
             trySend(Resource.Success(mapService.getStations(id)))
         } catch (e: Exception) {
