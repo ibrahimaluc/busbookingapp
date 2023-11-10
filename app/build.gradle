@@ -57,7 +57,7 @@ android {
     }
     buildFeatures{
         buildConfig = true
-        dataBinding true
+        viewBinding true
     }
 }
 
@@ -81,4 +81,8 @@ dependencies {
     //Coroutines Lifecycle Scopes
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
+
+    //Google Play Services
+    implementation "com.google.android.gms:play-services-maps:$versions.maps"
+
 }

@@ -24,6 +24,7 @@ ext {
             viewpager2        : '1.0.0',
             circleindicator   : '2.1.6',
             chuck             : '3.5.2',
+            maps              : '17.0.1',
 
     ]
 }
