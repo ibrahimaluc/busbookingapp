@@ -1,9 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -70,7 +69,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
     implementation 'com.google.android.gms:play-services-maps:18.2.0'
     testImplementation "junit:junit:$versions.junit"
-    androidTestImplementation "androidx.test.ext:junit:$versions.androidJunit"
+    testImplementation "androidx.test.ext:junit:1.1.5"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
 
     //Retrofit
@@ -83,8 +82,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
 
-    //Google Play Services
+    //Google Map Services
     implementation "com.google.android.gms:play-services-maps:$versions.maps"
+
 
     //Dagger - Hilt
     implementation "com.google.dagger:hilt-android:$versions.hilt"

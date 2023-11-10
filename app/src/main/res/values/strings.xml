@@ -2,4 +2,5 @@
     <string name="app_name">Bus Booking App</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="map">Map view</string>
+    <string name="listTrips">List Trips</string>
 </resources>

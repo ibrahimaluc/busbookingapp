@@ -7,7 +7,7 @@ ext {
             versionCode       : 1,
             versionName       : '1.0',
 
-            core              : '1.8.0',
+            core              : '1.7.0',
             appcompat         : '1.6.1',
             material          : '1.5.0',
             constraintlayout  : '2.1.4',
@@ -16,13 +16,7 @@ ext {
             espresso          : '3.5.1',
             retrofit          : '2.9.0',
             lifecycle         : '2.5.1',
-            navigation        : '2.5.2',
-            hilt              : '2.44',
-            glide             : '4.13.2',
-            swiperefreshlayout: '1.1.0',
-            room              : '2.4.0',
-            viewpager2        : '1.0.0',
-            circleindicator   : '2.1.6',
+            hilt              : '2.42',
             chuck             : '3.5.2',
             maps              : '17.0.1',
 
