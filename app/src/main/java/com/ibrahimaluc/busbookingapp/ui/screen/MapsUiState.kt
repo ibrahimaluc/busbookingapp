@@ -4,5 +4,5 @@ import com.ibrahimaluc.busbookingapp.data.remote.MapItem
 
 data class MapsUiState(
     val isLoading: Boolean,
-    val station: List<MapItem>? = null
+    var station: List<MapItem>? = null
 )

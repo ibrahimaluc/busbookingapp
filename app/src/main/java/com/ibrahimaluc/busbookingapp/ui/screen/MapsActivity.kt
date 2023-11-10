@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -21,8 +22,12 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.material.snackbar.Snackbar
 import com.ibrahimaluc.busbookingapp.R
+import com.ibrahimaluc.busbookingapp.core.extensions.collectLatestLifecycleFlow
+import com.ibrahimaluc.busbookingapp.data.remote.MapItem
 import com.ibrahimaluc.busbookingapp.databinding.ActivityMapsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
@@ -31,7 +36,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationListener: LocationListener
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
     private lateinit var sharedPreferences: SharedPreferences
-    var trackBoolean : Boolean? = null
+    var trackBoolean: Boolean? = null
+
+    private var stationList: List<MapItem>? = emptyList()
+    private val viewModel: MapViewModel by lazy {
+        ViewModelProvider(this)[MapViewModel::class.java]
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -46,20 +57,30 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         sharedPreferences = this.getSharedPreferences("com.ibrahimaluc.busbookingapp", MODE_PRIVATE)
         trackBoolean = false
+
+        collectLatestLifecycleFlow(viewModel.state, ::handleMapViewState)
+        viewModel.getMapList(6)
+
+
+    }
+    private  fun handleMapViewState(mapsUiState: MapsUiState){
+        stationList=mapsUiState.station
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mMap.setMapStyle(
             MapStyleOptions.loadRawResourceStyle(
-                this, R.raw.map_style_grey))
+                this, R.raw.map_style_grey
+            )
+        )
 
         locationManager = this.getSystemService(LOCATION_SERVICE) as LocationManager
 
         locationListener = object : LocationListener {
             override fun onLocationChanged(location: Location) {
                 trackBoolean = sharedPreferences.getBoolean("trackBoolean", false)
-                if (!trackBoolean!!){
+                if (!trackBoolean!!) {
                     val userLocation = LatLng(location.latitude, location.longitude)
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15f))
                     sharedPreferences.edit().putBoolean("trackBoolean", true).apply()
@@ -101,7 +122,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             if (lastLocation != null) {
                 val lastUserLocation = LatLng(lastLocation.latitude, lastLocation.longitude)
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastUserLocation, 15f))
-                mMap.isMyLocationEnabled=true
+                mMap.isMyLocationEnabled = true
             }
         }
     }
@@ -127,9 +148,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         if (lastLocation != null) {
                             val lastUserLocation =
                                 LatLng(lastLocation.latitude, lastLocation.longitude)
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastUserLocation, 15f))
+                            mMap.moveCamera(
+                                CameraUpdateFactory.newLatLngZoom(
+                                    lastUserLocation,
+                                    15f
+                                )
+                            )
                         }
-                        mMap.isMyLocationEnabled=true
+                        mMap.isMyLocationEnabled = true
                     }
                 } else {
                     //permission denied
