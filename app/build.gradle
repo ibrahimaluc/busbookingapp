@@ -85,4 +85,12 @@ dependencies {
     //Google Play Services
     implementation "com.google.android.gms:play-services-maps:$versions.maps"
 
+    //Dagger - Hilt
+    implementation "com.google.dagger:hilt-android:$versions.hilt"
+    kapt "com.google.dagger:hilt-compiler:$versions.hilt"
+
+    //Chucker
+    debugImplementation "com.github.chuckerteam.chucker:library:$versions.chuck"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:$versions.chuck"
+
 }
