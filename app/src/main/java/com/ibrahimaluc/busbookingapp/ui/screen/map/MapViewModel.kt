@@ -1,4 +1,4 @@
-package com.ibrahimaluc.busbookingapp.ui.screen
+package com.ibrahimaluc.busbookingapp.ui.screen.map
 
 import androidx.lifecycle.viewModelScope
 import com.ibrahimaluc.busbookingapp.core.base.BaseViewModel

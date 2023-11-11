@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/mapsActivity">
+
+    <activity
+        android:id="@+id/mapsActivity"
+        android:name="com.ibrahimaluc.busbookingapp.ui.screen.map.MapsActivity"
+        tools:layout="@layout/activity_maps"
+        android:label="MapsActivity" />
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.ibrahimaluc.busbookingapp.ui.screen.trip.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" />
+
+</navigation>

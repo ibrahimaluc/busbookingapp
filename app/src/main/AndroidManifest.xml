@@ -23,7 +23,7 @@
             android:value="${mapApiKey}" />
 
         <activity
-            android:name=".ui.screen.MapsActivity"
+            android:name=".ui.screen.map.MapsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.ibrahimaluc.busbookingapp.ui.screen
+package com.ibrahimaluc.busbookingapp.ui.screen.map
 
 import com.ibrahimaluc.busbookingapp.data.remote.MapItem
 

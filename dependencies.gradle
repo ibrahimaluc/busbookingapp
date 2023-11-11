@@ -19,6 +19,7 @@ ext {
             hilt              : '2.42',
             chuck             : '3.5.2',
             maps              : '17.0.1',
+            navigation        : '2.5.2',
 
     ]
 }

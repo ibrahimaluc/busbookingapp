@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.screen.MapsActivity">
+        tools:context=".ui.screen.map.MapsActivity">
 
         <fragment
             android:id="@+id/map"
@@ -30,7 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:mapType="normal"
-            tools:context=".ui.screen.MapsActivity"
+            tools:context=".ui.screen.map.MapsActivity"
             tools:layout="@layout/activity_maps" />
 
         <com.google.android.material.button.MaterialButton
