@@ -2,7 +2,7 @@ ext {
     versions = [
 
             minSdk            : 24,
-            compileSdk        : 33,
+            compileSdk        : 34,
             targetSdk         : 33,
             versionCode       : 1,
             versionName       : '1.0',
