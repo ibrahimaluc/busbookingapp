@@ -26,6 +26,7 @@ import com.ibrahimaluc.busbookingapp.R
 import com.ibrahimaluc.busbookingapp.core.extensions.collectLatestLifecycleFlow
 import com.ibrahimaluc.busbookingapp.data.remote.MapItem
 import com.ibrahimaluc.busbookingapp.databinding.ActivityMapsBinding
+import com.ibrahimaluc.busbookingapp.ui.screen.trip.ListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,7 +54,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(binding.root)
 
         val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
+            .findFragmentById(R.id.fragmentContainer) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         registerLauncher()
@@ -176,8 +177,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         .position(LatLng(latLong.first!!, latLong.second!!))
                         .title("${station.tripsCount} Trips")
                     mMap.addMarker(markerOptions)
-                    binding.isActive=true
+                    binding.isActive = true
+                    binding.btListTrip.setOnClickListener {
 
+                        val fragment = ListFragment()
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainer, fragment)
+                            .addToBackStack(null)
+                            .commit()
+                    }
 //                    val circleOptions = CircleOptions()
 //                        .center(LatLng(latLong.first!!, latLong.second!!))
 //                        .radius(200.0)
@@ -194,4 +202,5 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
+
 }
