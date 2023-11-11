@@ -5,4 +5,8 @@
     <string name="listTrips">List Trips</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="trips">Trips</string>
+    <string name="tripName">AA-00</string>
+    <string name="tripTime">0:00 AM</string>
+    <string name="book">Book</string>
 </resources>

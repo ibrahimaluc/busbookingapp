@@ -3,6 +3,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'androidx.navigation.safeargs'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id "kotlin-parcelize"
 }
 
 android {
@@ -24,7 +27,7 @@ android {
             applicationId "com.ibrahimaluc.busbookingapp"
 
             buildConfigField("String", 'BASE_URL', '"https://demo.voltlines.com/"')
-            manifestPlaceholders = [mapApiKey: "AIzaSyBqoR7WJODT83WiugZh_9BRw6-qSCBKS4k"]
+            manifestPlaceholders = [mapApiKey: "AIzaSyAGRaIduCr-Cc1vAO3K7ttXjWcGP7gFH5s"]
 
         }
         live {
@@ -32,7 +35,7 @@ android {
             applicationId "com.ibrahimaluc.busbookingapp"
 
             buildConfigField("String", 'BASE_URL', '"https://demo.voltlines.com/"')
-            manifestPlaceholders = [mapApiKey: "AIzaSyBqoR7WJODT83WiugZh_9BRw6-qSCBKS4k"]
+            manifestPlaceholders = [mapApiKey: "AIzaSyAGRaIduCr-Cc1vAO3K7ttXjWcGP7gFH5s"]
         }
     }
 

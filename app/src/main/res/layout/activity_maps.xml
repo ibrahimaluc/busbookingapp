@@ -4,46 +4,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="isActive"
-            type="Boolean" />
-
-        <import type="android.view.View" />
-    </data>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.screen.map.MapsActivity">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainer"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            class='com.google.android.gms.maps.SupportMapFragment'
+        <fragment
+            android:id="@+id/navHostFragmentContainer"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="@string/map"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:defaultNavHost="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:mapType="normal"
-            tools:layout="@layout/activity_maps" />
+            app:navGraph="@navigation/my_nav" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btListTrip"
-            android:layout_width="match_parent"
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_8"
-            android:text="@string/listTrips"
-            android:textSize="@dimen/sp_16"
-            android:visibility="@{isActive ? View.VISIBLE : View.GONE}"
+            android:elevation="@dimen/dp_4"
+            android:indeterminateTint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
