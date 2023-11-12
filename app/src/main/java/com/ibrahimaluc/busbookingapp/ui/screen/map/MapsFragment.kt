@@ -6,28 +6,29 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import com.ibrahimaluc.busbookingapp.R
 import com.ibrahimaluc.busbookingapp.core.base.BaseFragment
 import com.ibrahimaluc.busbookingapp.core.extensions.collectLatestLifecycleFlow
 import com.ibrahimaluc.busbookingapp.data.remote.MapItem
-import com.ibrahimaluc.busbookingapp.data.remote.Trip
 import com.ibrahimaluc.busbookingapp.databinding.FragmentMapsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -161,6 +162,7 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
     }
 
     private fun updateMapWithStations(stations: List<MapItem>) {
+        val markerOptions = MarkerOptions()
         for (station in stations) {
             station.centerCoordinates?.let { coordinates ->
                 val latLong = coordinates.split(",").runCatching {
@@ -169,9 +171,10 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
                     Pair(lat, long)
                 }.getOrNull()
                 if ((latLong?.first != null) && (latLong.second != null)) {
-                    val markerOptions = MarkerOptions()
-                        .position(LatLng(latLong.first!!, latLong.second!!))
+                    markerOptions.position(LatLng(latLong.first!!, latLong.second!!))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_custom_pin))
                         .title("${station.tripsCount} Trips")
+
                     val marker = mMap.addMarker(markerOptions)
                     marker?.tag = station
                 } else {
@@ -179,10 +182,33 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
                 }
             }
         }
+//        mMap.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
+//            override fun getInfoContents(p0: Marker): View? {
+//                val infoWindow = layoutInflater.inflate(R.layout.item_map_info_window, null)
+//
+////                val tvTrip = infoWindow.findViewById<TextView>(R.id.tvTrip)
+////                tvTrip.text = p0.title
+//                infoWindow.setBackgroundColor(
+//                    ContextCompat.getColor(
+//                        requireContext(),
+//                        R.color.darkGray
+//                    )
+//                )
+//
+//                return infoWindow
+//            }
+//
+//            override fun getInfoWindow(marker: Marker): View? {
+//                return null
+//            }
+//
+//        })
+
         mMap.setOnMarkerClickListener { marker ->
+            marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_custom_pin_selected))
             binding.isActive = true
             selectedStation = marker.tag as? MapItem
-            true
+            false
         }
         binding.btListTrips.setOnClickListener {
             selectedStation?.let {
@@ -190,6 +216,7 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
             }
         }
     }
+
     private fun navigateToTripListFragment(tripList: MapItem) {
         val action = MapsFragmentDirections.actionMapsFragmentToListFragment(tripList)
         findNavController().navigate(action)

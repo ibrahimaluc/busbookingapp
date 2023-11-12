@@ -9,4 +9,5 @@
     <string name="tripIsFull">The trip you selected is full.</string>
     <string name="selectAnotherTrip">Please select another one.</string>
     <string name="selectATrip">Select a Trip</string>
+    <string name="tripCount">0 Trips</string>
 </resources>
