@@ -1,5 +1,6 @@
 package com.ibrahimaluc.busbookingapp.ui.screen.trip
 
+import android.util.Log
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.fragment.findNavController
 import com.ibrahimaluc.busbookingapp.data.remote.Trip
@@ -54,11 +55,15 @@ class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>(
     }
 
     private fun showDialog() {
-        val dialogFragment = TripDialogFragment()
-        val fragmentManager = parentFragmentManager
-        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-        transaction.add(dialogFragment, "trip_dialog")
-        transaction.commit()
+        try {
+            val dialogFragment = TripDialogFragment()
+            val fragmentManager = parentFragmentManager
+            val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+            transaction.add(dialogFragment, "trip_dialog")
+            transaction.commit()
+        } catch (e: Exception) {
+            Log.e("TripDialogFragment", "Error while showing dialog", e)
+        }
     }
 
     private fun navigateToMapFragment() {
