@@ -4,6 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="data"
+            type="com.ibrahimaluc.busbookingapp.data.remote.Trip" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,6 +28,7 @@
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="@{data.busName}"
                 android:textSize="@dimen/sp_16"
                 android:textStyle="bold"
                 tools:text="@string/tripName" />
@@ -32,6 +40,7 @@
                 android:layout_marginEnd="@dimen/dp_16"
                 android:layout_weight="1"
                 android:gravity="end"
+                android:text="@{data.time}"
                 android:textSize="@dimen/sp_14"
                 android:textStyle="bold"
                 tools:text="@string/tripTime" />
