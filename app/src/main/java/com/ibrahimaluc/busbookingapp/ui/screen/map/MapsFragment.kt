@@ -186,17 +186,13 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
         }
         binding.btListTrips.setOnClickListener {
             selectedStation?.let {
-                navigateToTripListFragment(it.trips)
+                navigateToTripListFragment(it)
             }
         }
     }
-
-    private fun navigateToTripListFragment(tripList: List<Trip>?) {
-        val bundle = Bundle()
-        bundle.putParcelableArrayList("tripList", ArrayList(tripList))
-
-        val navController = findNavController()
-        navController.navigate(R.id.action_mapsFragment_to_listFragment, bundle)
+    private fun navigateToTripListFragment(tripList: MapItem) {
+        val action = MapsFragmentDirections.actionMapsFragmentToListFragment(tripList)
+        findNavController().navigate(action)
     }
 
 }

@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.ibrahimaluc.busbookingapp.data.remote.MapItem
 import com.ibrahimaluc.busbookingapp.data.remote.Trip
 import com.ibrahimaluc.busbookingapp.databinding.ItemListBinding
 
-class TripListAdapter() :
+class TripListAdapter(private val clickControl: (Int?) -> Unit
+) :
     RecyclerView.Adapter<TripListAdapter.TripListViewHolder>() {
 
     class TripListViewHolder(var binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
@@ -34,6 +36,9 @@ class TripListAdapter() :
 
     override fun onBindViewHolder(holder: TripListViewHolder, position: Int) {
         holder.binding.data = tripList[position]
+        holder.binding.btBook.setOnClickListener {
+            clickControl(tripList[position].id)
+        }
     }
 
     override fun getItemCount(): Int {

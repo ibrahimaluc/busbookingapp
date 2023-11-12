@@ -1,37 +1,68 @@
 package com.ibrahimaluc.busbookingapp.ui.screen.trip
 
-import android.media.MediaCodec.LinearBlock
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.ibrahimaluc.busbookingapp.R
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.fragment.findNavController
 import com.ibrahimaluc.busbookingapp.data.remote.Trip
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ibrahimaluc.busbookingapp.core.base.BaseFragment
+import com.ibrahimaluc.busbookingapp.core.extensions.collectLatestLifecycleFlow
 import com.ibrahimaluc.busbookingapp.databinding.FragmentListBinding
 import com.ibrahimaluc.busbookingapp.ui.adapter.TripListAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class ListFragment : BaseFragment<ListViewModel,FragmentListBinding>(
+@AndroidEntryPoint
+class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>(
     ListViewModel::class.java,
     FragmentListBinding::inflate
 ) {
+    private val args: ListFragmentArgs by navArgs()
+    private var tripListAdapter: TripListAdapter? = null
 
-    private  var tripList: ArrayList<Trip> = arrayListOf()
-    private var tripListAdapter:TripListAdapter? = null
 
     override fun onCreateViewInvoke() {
-        tripList= arguments?.getParcelableArrayList("tripList")!!
-        adapter(tripList)
+        val mapItems = args.trip
+        adapter(mapItems.trips)
+        collectLatestLifecycleFlow(viewModel.state, ::handleViewState)
     }
 
-    private fun adapter(tripList: ArrayList<Trip>?)= with(binding){
-        tripListAdapter= TripListAdapter()
-        recyclerView.layoutManager=LinearLayoutManager(requireContext())
-        recyclerView.adapter=tripListAdapter
+    private fun adapter(tripList: List<Trip>?) = with(binding) {
+        tripListAdapter = TripListAdapter(::book)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = tripListAdapter
         tripListAdapter!!.tripList = tripList ?: emptyList()
+    }
+
+    private fun handleViewState(listUiState: ListUiState) {
+        listUiState.message?.let {
+            if (it.isNotEmpty()) {
+                showDialog()
+            }
+        }
+        if (listUiState.trip != null) {
+            navigateToMapFragment()
+        }
+    }
+
+    private fun book(id: Int?) {
+        val selectedStation = args.trip.id
+        if (selectedStation != null) {
+            if (id != null) {
+                viewModel.sendBook(6, selectedStation, id)
+            }
+        }
+    }
+
+    private fun showDialog() {
+        val dialogFragment = TripDialogFragment()
+        val fragmentManager = parentFragmentManager
+        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+        transaction.add(dialogFragment, "trip_dialog")
+        transaction.commit()
+    }
+
+    private fun navigateToMapFragment() {
+        val action = ListFragmentDirections.actionListFragmentToMapsFragment()
+        findNavController().navigate(action)
     }
 }

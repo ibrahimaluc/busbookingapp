@@ -9,7 +9,14 @@
         android:id="@+id/listFragment"
         android:name="com.ibrahimaluc.busbookingapp.ui.screen.trip.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <argument
+            android:name="trip"
+            app:argType="com.ibrahimaluc.busbookingapp.data.remote.MapItem" />
+        <action
+            android:id="@+id/action_listFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/mapsFragment"

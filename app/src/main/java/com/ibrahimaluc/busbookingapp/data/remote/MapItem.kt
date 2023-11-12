@@ -1,8 +1,12 @@
 package com.ibrahimaluc.busbookingapp.data.remote
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+
+@Parcelize
 data class MapItem(
     @SerializedName("center_coordinates")
     val centerCoordinates: String?,
@@ -14,4 +18,4 @@ data class MapItem(
     val trips: List<Trip>?,
     @SerializedName("trips_count")
     val tripsCount: Int?
-)
+) : Parcelable

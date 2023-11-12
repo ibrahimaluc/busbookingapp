@@ -6,4 +6,7 @@
     <string name="tripName">AA-00</string>
     <string name="tripTime">0:00 AM</string>
     <string name="book">Book</string>
+    <string name="tripIsFull">The trip you selected is full.</string>
+    <string name="selectAnotherTrip">Please select another one.</string>
+    <string name="selectATrip">Select a Trip</string>
 </resources>
