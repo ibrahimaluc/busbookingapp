@@ -188,7 +188,6 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
             }
         }
         setOnMarkerClickListener()
-
     }
 
     private fun setOnMarkerClickListener() {
@@ -209,7 +208,6 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
         }
     }
 
-
     private fun checkBookedStation(station: MapItem): Boolean {
         return try {
             val bookedStation: MapItem? = args.bookedSt
@@ -224,6 +222,4 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
         val action = MapsFragmentDirections.actionMapsFragmentToListFragment(tripList)
         findNavController().navigate(action)
     }
-
-
 }

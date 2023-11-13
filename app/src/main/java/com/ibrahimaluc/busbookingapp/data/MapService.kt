@@ -18,5 +18,4 @@ interface MapService {
         @Path("station_id") stationId: Int,
         @Path("trip_id") tripId: Int
     ): Trip
-
 }
