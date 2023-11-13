@@ -26,7 +26,7 @@ With this application,users can see bus reservation options near their position 
 ## Screenrecord 📱
 
 <p align="left">
-https://github.com/ibrahimaluc/ECommerce-Kotlin/assets/36038586/c8dde482-88a8-4dba-b13f-54b9d82fc8bb
+https://github.com/ibrahimaluc/busbookingapp/assets/36038586/32cb92c3-f2c4-4cbe-9c1f-0484114a8c8e
 
 ## Architecture
 

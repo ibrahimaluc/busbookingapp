@@ -176,7 +176,6 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
                         .title("${station.tripsCount} Trips")
 
                     if (checkBookedStation(station)) {
-                        Toast.makeText(requireContext(), "Booked", Toast.LENGTH_SHORT).show()
                         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_custom_pin_completed))
                     } else {
                         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_custom_pin))
