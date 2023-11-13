@@ -8,6 +8,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ibrahimaluc.busbookingapp.core.base.BaseFragment
 import com.ibrahimaluc.busbookingapp.core.extensions.collectLatestLifecycleFlow
+import com.ibrahimaluc.busbookingapp.data.remote.MapItem
 import com.ibrahimaluc.busbookingapp.databinding.FragmentListBinding
 import com.ibrahimaluc.busbookingapp.ui.adapter.TripListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +42,7 @@ class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>(
             }
         }
         if (listUiState.trip != null) {
-            navigateToMapFragment()
+            navigateToMapFragment(args.trip)
         }
     }
 
@@ -66,8 +67,9 @@ class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>(
         }
     }
 
-    private fun navigateToMapFragment() {
-        val action = ListFragmentDirections.actionListFragmentToMapsFragment()
+    private fun navigateToMapFragment(bookedSt:MapItem) {
+        val action = ListFragmentDirections.actionListFragmentToMapsFragment(bookedSt)
+        println("book: $bookedSt")
         findNavController().navigate(action)
     }
 }

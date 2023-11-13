@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -46,7 +48,8 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
     var trackBoolean: Boolean? = null
     private var stationList: List<MapItem>? = emptyList()
     private var selectedStation: MapItem? = null
-
+    private var selectedMarker: Marker? = null
+    private val args: MapsFragmentArgs by navArgs()
 
     override fun onCreateViewInvoke() {
         collectLatestLifecycleFlow(viewModel.state, ::handleMapViewState)
@@ -162,6 +165,7 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
     }
 
     private fun updateMapWithStations(stations: List<MapItem>) {
+        mMap.clear()
         val markerOptions = MarkerOptions()
         for (station in stations) {
             station.centerCoordinates?.let { coordinates ->
@@ -172,9 +176,13 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
                 }.getOrNull()
                 if ((latLong?.first != null) && (latLong.second != null)) {
                     markerOptions.position(LatLng(latLong.first!!, latLong.second!!))
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_custom_pin))
                         .title("${station.tripsCount} Trips")
 
+                    if (checkBookedStation(station)) {
+                        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_custom_pin_completed))
+                    } else {
+                        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_custom_pin))
+                    }
                     val marker = mMap.addMarker(markerOptions)
                     marker?.tag = station
                 } else {
@@ -182,30 +190,17 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
                 }
             }
         }
-//        mMap.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
-//            override fun getInfoContents(p0: Marker): View? {
-//                val infoWindow = layoutInflater.inflate(R.layout.item_map_info_window, null)
-//
-////                val tvTrip = infoWindow.findViewById<TextView>(R.id.tvTrip)
-////                tvTrip.text = p0.title
-//                infoWindow.setBackgroundColor(
-//                    ContextCompat.getColor(
-//                        requireContext(),
-//                        R.color.darkGray
-//                    )
-//                )
-//
-//                return infoWindow
-//            }
-//
-//            override fun getInfoWindow(marker: Marker): View? {
-//                return null
-//            }
-//
-//        })
+        setOnMarkerClickListener()
 
+    }
+
+    private fun setOnMarkerClickListener() {
         mMap.setOnMarkerClickListener { marker ->
+            selectedMarker?.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_custom_pin))
+
+            selectedMarker = marker
             marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_custom_pin_selected))
+
             binding.isActive = true
             selectedStation = marker.tag as? MapItem
             false
@@ -217,9 +212,21 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
         }
     }
 
+
+    private fun checkBookedStation(station: MapItem): Boolean {
+        return try {
+            val bookedStation: MapItem? = args.bookedSt
+            (bookedStation != null) && (bookedStation.id == station.id)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
     private fun navigateToTripListFragment(tripList: MapItem) {
         val action = MapsFragmentDirections.actionMapsFragmentToListFragment(tripList)
         findNavController().navigate(action)
     }
+
 
 }

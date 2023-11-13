@@ -22,10 +22,14 @@
         android:id="@+id/mapsFragment"
         android:name="com.ibrahimaluc.busbookingapp.ui.screen.map.MapsFragment"
         android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" >
+        tools:layout="@layout/fragment_maps">
         <action
             android:id="@+id/action_mapsFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <argument
+            android:name="bookedSt"
+            app:argType="com.ibrahimaluc.busbookingapp.data.remote.MapItem"
+            app:nullable="true" />
     </fragment>
 
 </navigation>
