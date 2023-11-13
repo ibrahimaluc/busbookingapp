@@ -1,4 +1,4 @@
-# ECommerce
+# Bus Booking
 
 <b>The main goal of this project is to practice with clean architecture and utilize various
 technologies, libraries and tools as listed below.</b>
@@ -31,5 +31,5 @@ https://github.com/ibrahimaluc/ECommerce-Kotlin/assets/36038586/c8dde482-88a8-4d
 ## Architecture
 
 <p align="left">
-  <img  src="https://github.com/ibrahimaluc/busbookingapp /blob/master/readmefiles/mvvm_flow_uistate.png" alt="Architecture" width="800" height="400" />
+  <img  src="https://github.com/ibrahimaluc/busbookingapp/blob/master/readmefiles/mvvm_flow_uistate.png" alt="Architecture" width="800" height="400" />
 </p>
