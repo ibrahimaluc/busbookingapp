@@ -21,7 +21,6 @@ class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>(
     private val args: ListFragmentArgs by navArgs()
     private var tripListAdapter: TripListAdapter? = null
 
-
     override fun onCreateViewInvoke() {
         val mapItems = args.trip
         adapter(mapItems.trips)
@@ -64,6 +63,7 @@ class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>(
             transaction.commit()
         } catch (e: Exception) {
             Log.e("TripDialogFragment", "Error while showing dialog", e)
+
         }
     }
 

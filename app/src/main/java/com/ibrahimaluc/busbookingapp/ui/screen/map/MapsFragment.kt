@@ -6,10 +6,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -82,7 +79,7 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
                 trackBoolean = sharedPreferences.getBoolean("trackBoolean", false)
                 if (!trackBoolean!!) {
                     val userLocation = LatLng(location.latitude, location.longitude)
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 10f))
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 12f))
 
                     sharedPreferences.edit().putBoolean("trackBoolean", true).apply()
                 }
@@ -121,7 +118,7 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
             val lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             if (lastLocation != null) {
                 val lastUserLocation = LatLng(lastLocation.latitude, lastLocation.longitude)
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastUserLocation, 10f))
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastUserLocation, 12f))
                 mMap.isMyLocationEnabled = true
             }
         }
@@ -151,7 +148,7 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
                             mMap.moveCamera(
                                 CameraUpdateFactory.newLatLngZoom(
                                     lastUserLocation,
-                                    10f
+                                    12f
                                 )
                             )
                         }
@@ -179,6 +176,7 @@ class MapsFragment : BaseFragment<MapViewModel, FragmentMapsBinding>(
                         .title("${station.tripsCount} Trips")
 
                     if (checkBookedStation(station)) {
+                        Toast.makeText(requireContext(), "Booked", Toast.LENGTH_SHORT).show()
                         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_custom_pin_completed))
                     } else {
                         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_custom_pin))

@@ -17,7 +17,7 @@ class ListViewModel @Inject constructor(
     private val mapRepository: MapRepository
 ) : BaseViewModel() {
     private val _state: MutableStateFlow<ListUiState> =
-        MutableStateFlow(ListUiState(isLoading = true))
+        MutableStateFlow(ListUiState(isLoading = false))
     val state: StateFlow<ListUiState> get() = _state
 
     fun sendBook(id: Int, stationId: Int, tripId: Int) {
