@@ -27,7 +27,8 @@ With this application,users can see bus reservation options near their position 
 
 <p align="left">
 
-https://github.com/ibrahimaluc/busbookingapp/assets/36038586/32cb92c3-f2c4-4cbe-9c1f-0484114a8c8e
+https://github.com/ibrahimaluc/busbookingapp/assets/36038586/79150f25-157f-4c39-95ba-50c91b4852ab
+
 
 ## Architecture
 
